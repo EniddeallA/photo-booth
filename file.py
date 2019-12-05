@@ -29,9 +29,11 @@ class PhotoBoothApp:
 
         # create a button, that when pressed, will take the current
         # frame and save it to file
-        btn = tki.Button(self.root, text="Snapshot!",
+        self.image = ImageTk.PhotoImage(file="./pic.png")
+        btn = tki.Button(self.root, image = self.image,
                          command=self.takeSnapshot)
-        btn.pack(side="bottom", fill="both", expand="yes", padx=10,
+        btn.config( height = 160, width = 400 )
+        btn.pack(side="bottom", padx=10,
                  pady=10)
 
         # start a thread that constantly pools the video sensor for
@@ -41,7 +43,7 @@ class PhotoBoothApp:
         self.thread.start()
 
         # set a callback to handle when the window is closed
-        self.root.wm_title("PyImageSearch PhotoBooth")
+        self.root.wm_title("PhotoBooth")
         self.root.wm_protocol("WM_DELETE_WINDOW", self.onClose)
 
     def videoLoop(self):
